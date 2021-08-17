@@ -7,6 +7,7 @@ import java.util.List;
 import org.byunghakjang1230.lotto.exception.DuplicateLottoNumbersException;
 
 public class Lotto {
+    public static final int LOTTO_PRICE_PER_ONE = 1_000;
     public static final int LOTTO_NUMBERS_SIZE = 6;
     private final List<LottoNumber> lottoNumbers;
 

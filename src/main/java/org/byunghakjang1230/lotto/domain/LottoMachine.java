@@ -14,25 +14,18 @@ public class LottoMachine {
         this.lottoNumbersGenerator = lottoNumbersGenerator;
     }
 
-    public List<Lotto> createLottosAuto(final int price) {
+    public Lottos createLottosAuto(final int price) {
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < calculateNumberOfBuy(price); i++) {
             lottos.add(new Lotto(lottoNumbersGenerator.generateLottoNumbers()));
         }
-        return lottos;
+        return new Lottos(lottos);
     }
 
-    public List<LottoNumber> toWinningLottoNumbers(List<Integer> winningNumbers) {
-        validateWinningLottoNumbersSize(winningNumbers);
-        return winningNumbers.stream()
+    public WinningNumbers toWinningLottoNumbers(List<Integer> winningNumbers) {
+        return new WinningNumbers(winningNumbers.stream()
                 .map(LottoNumbersPool::getLottoNumber)
-                .collect(Collectors.toList());
-    }
-
-    private void validateWinningLottoNumbersSize(List<Integer> winningNumbers) {
-        if (winningNumbers.size() != Lotto.LOTTO_NUMBERS_SIZE) {
-            throw new IllegalArgumentException("입력된 로또번호가 6개가 아닙니다.");
-        }
+                .collect(Collectors.toList()));
     }
 
     private int calculateNumberOfBuy(int price) {
