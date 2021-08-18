@@ -1,12 +1,11 @@
 package org.byunghakjang1230.lotto.domain;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import org.byunghakjang1230.lotto.exception.DuplicateLottoNumbersException;
 
-public class Lotto {
+public class Lotto implements LottoNumbers {
     public static final int LOTTO_PRICE_PER_ONE = 1_000;
     public static final int LOTTO_NUMBERS_SIZE = 6;
     private final List<LottoNumber> lottoNumbers;
@@ -17,10 +16,17 @@ public class Lotto {
         this.lottoNumbers = lottoNumbers;
     }
 
-    public int matchNumberCount(final List<LottoNumber> lottoNumbers) {
-        List<LottoNumber> resultLottoNumbers = new ArrayList<>(lottoNumbers);
-        resultLottoNumbers.retainAll(this.lottoNumbers);
-        return lottoNumbers.size();
+    @Override
+    public boolean isContain(LottoNumber lottoNumber) {
+        return this.lottoNumbers.stream()
+                .anyMatch(lottoNumber::equals);
+    }
+
+    @Override
+    public int getMatchNumberCount(LottoNumbers lottoNumbers) {
+        return (int)this.lottoNumbers.stream()
+                .filter(lottoNumbers::isContain)
+                .count();
     }
 
     private void validateLottoNumbersSize(List<LottoNumber> lottoNumbers) {

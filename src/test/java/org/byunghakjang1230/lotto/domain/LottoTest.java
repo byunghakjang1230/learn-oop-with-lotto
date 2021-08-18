@@ -1,5 +1,6 @@
 package org.byunghakjang1230.lotto.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Arrays;
@@ -47,5 +48,25 @@ class LottoTest {
         assertThatThrownBy(() -> new Lotto(lottoNumbersGenerator.toLottoNumbers(Arrays.asList(1, 2, 3, 3, 4, 5))))
                 .isInstanceOf(DuplicateLottoNumbersException.class)
                 .hasMessage("중복되는 로또번호가 존재합니다.");
+    }
+
+    @Test
+    @DisplayName("일치하는 로또번호")
+    void match_count() {
+        // given
+        LottoNumbersGenerator lottoNumbersGenerator = new LottoNumbersGenerator() {
+            @Override
+            public List<LottoNumber> generateLottoNumbers() {
+                return toLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
+            }
+        };
+        Lotto lotto = new Lotto(lottoNumbersGenerator.toLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)));
+        WinningNumbers winningNumbers = new WinningNumbers(lottoNumbersGenerator.toLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)));
+
+        // when
+        int matchNumberCount = lotto.getMatchNumberCount(winningNumbers);
+
+        // then
+        assertThat(matchNumberCount).isEqualTo(6);
     }
 }

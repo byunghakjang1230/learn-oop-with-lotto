@@ -5,13 +5,26 @@ import java.util.List;
 
 import org.byunghakjang1230.lotto.exception.DuplicateLottoNumbersException;
 
-public class WinningNumbers {
+public class WinningNumbers implements LottoNumbers {
     private final List<LottoNumber> winningNumbers;
 
     public WinningNumbers(List<LottoNumber> winningNumbers) {
         validateWinningLottoNumbersSize(winningNumbers);
         validateDuplicateWinningLottoNumbers(winningNumbers);
         this.winningNumbers = winningNumbers;
+    }
+
+    @Override
+    public int getMatchNumberCount(LottoNumbers lottoNumbers) {
+        return (int)this.winningNumbers.stream()
+                .filter(lottoNumbers::isContain)
+                .count();
+    }
+
+    @Override
+    public boolean isContain(LottoNumber lottoNumber) {
+        return this.winningNumbers.stream()
+                .anyMatch(lottoNumber::equals);
     }
 
     private void validateDuplicateWinningLottoNumbers(List<LottoNumber> winningNumbers) {
@@ -24,9 +37,5 @@ public class WinningNumbers {
         if (winningNumbers.size() != Lotto.LOTTO_NUMBERS_SIZE) {
             throw new IllegalArgumentException("입력된 로또번호가 6개가 아닙니다.");
         }
-    }
-
-    public int getMatchNumberCount(Lotto lotto) {
-        return lotto.matchNumberCount(this.winningNumbers);
     }
 }
