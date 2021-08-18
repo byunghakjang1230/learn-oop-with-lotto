@@ -16,4 +16,12 @@ public class TypeConvertor {
                 .map(LottoNumber::new)
                 .collect(Collectors.toList());
     }
+
+    public static int toInteger(String textNumber) {
+        try {
+            return Integer.parseInt(textNumber);
+        } catch (NumberFormatException exception) {
+            throw new IllegalArgumentException("숫자로 변환할 수 없는 문자입니다. input text : " + textNumber);
+        }
+    }
 }
