@@ -2,6 +2,7 @@ package org.byunghakjang1230.lotto.domain;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.StringJoiner;
 
 import org.byunghakjang1230.lotto.exception.DuplicateLottoNumbersException;
 
@@ -20,6 +21,15 @@ public class Lotto implements LottoNumbers {
     public boolean isContain(LottoNumber lottoNumber) {
         return this.lottoNumbers.stream()
                 .anyMatch(lottoNumber::equals);
+    }
+
+    @Override
+    public String toStringNumbers(String prefix, String postfix, String delimiter) {
+        StringJoiner stringNumber = new StringJoiner(delimiter);
+        for (LottoNumber lottoNumber : lottoNumbers) {
+            stringNumber.add(lottoNumber.toString());
+        }
+        return prefix + stringNumber.toString() + postfix;
     }
 
     @Override

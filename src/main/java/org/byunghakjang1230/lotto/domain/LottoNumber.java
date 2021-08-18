@@ -29,6 +29,11 @@ public class LottoNumber {
         return Objects.hash(lottoNumber);
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(this.lottoNumber);
+    }
+
     private void validateLottoNumberRange(int number) {
         if (number < START_NUMBER || number > END_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1~45 사이의 숫자만 가능합니다.");

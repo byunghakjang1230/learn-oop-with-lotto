@@ -1,6 +1,9 @@
 package org.byunghakjang1230.lotto.constant;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum LottoRankingPolicy {
     FIRST(6, 2_000_000_000),
@@ -17,6 +20,14 @@ public enum LottoRankingPolicy {
         this.prizeMoney = prizeMoney;
     }
 
+    public static List<LottoRankingPolicy> orderValuesWithoutOutOfRank() {
+        LottoRankingPolicy[] values = values();
+        Arrays.sort(values, Collections.reverseOrder());
+        return Arrays.stream(values)
+                .filter(lottoRankingPolicy -> !lottoRankingPolicy.equals(OUT_OF_RANK))
+                .collect(Collectors.toList());
+    }
+
     public int getMatchCount() {
         return matchCount;
     }
@@ -26,7 +37,7 @@ public enum LottoRankingPolicy {
     }
 
     public Long multiplyPrizeMoney(int matchCount) {
-        return (long)(this.prizeMoney * matchCount);
+        return (long)this.prizeMoney * (long)matchCount;
     }
 
     public static LottoRankingPolicy findLottoRankByMatchCount(int matchCount) {

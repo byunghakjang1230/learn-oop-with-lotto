@@ -7,6 +7,7 @@ import org.byunghakjang1230.lotto.constant.LottoRankingPolicy;
 
 public class WinningResultStatistics {
     private static final int ONE_PERCENT = 100;
+    private static final Double BASE_RATE = 1.0;
     private Map<LottoRankingPolicy, Integer> rankCounts;
     private Long totalPrizeMoney;
     private Double profitRate;
@@ -37,6 +38,10 @@ public class WinningResultStatistics {
 
     public int getMatchCountBy(final LottoRankingPolicy rank) {
         return this.rankCounts.getOrDefault(rank, 0);
+    }
+
+    public boolean isLoss() {
+        return profitRate < BASE_RATE;
     }
 
     private static long calculateTotalPrizeMoney(final Map<LottoRankingPolicy, Integer> rankCounts) {
