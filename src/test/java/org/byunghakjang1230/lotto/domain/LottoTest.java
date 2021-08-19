@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.byunghakjang1230.lotto.exception.DuplicateLottoNumbersException;
 import org.byunghakjang1230.lotto.utils.LottoNumbersPool;
+import org.byunghakjang1230.lotto.utils.TypeConvertor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -36,16 +37,8 @@ class LottoTest {
     @Test
     @DisplayName("로또 번호 중복 번호 예외처리")
     void lotto_duplicate_exception() {
-        // given
-        LottoNumbersGenerator lottoNumbersGenerator = new LottoNumbersGenerator() {
-            @Override
-            public List<LottoNumber> generateLottoNumbers() {
-                return toLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
-            }
-        };
-
         // then
-        assertThatThrownBy(() -> new Lotto(lottoNumbersGenerator.toLottoNumbers(Arrays.asList(1, 2, 3, 3, 4, 5))))
+        assertThatThrownBy(() -> new Lotto(TypeConvertor.toLottoNumbers(Arrays.asList(1, 2, 3, 3, 4, 5))))
                 .isInstanceOf(DuplicateLottoNumbersException.class)
                 .hasMessage("중복되는 로또번호가 존재합니다.");
     }
@@ -54,14 +47,8 @@ class LottoTest {
     @DisplayName("일치하는 로또번호")
     void match_count() {
         // given
-        LottoNumbersGenerator lottoNumbersGenerator = new LottoNumbersGenerator() {
-            @Override
-            public List<LottoNumber> generateLottoNumbers() {
-                return toLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
-            }
-        };
-        Lotto lotto = new Lotto(lottoNumbersGenerator.toLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)));
-        WinningNumbers winningNumbers = new WinningNumbers(lottoNumbersGenerator.toLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)));
+        Lotto lotto = new Lotto(TypeConvertor.toLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)));
+        WinningNumbers winningNumbers = WinningNumbers.of(Arrays.asList(1, 2, 3, 4, 5, 6));
 
         // when
         int matchNumberCount = lotto.getMatchNumberCount(winningNumbers);

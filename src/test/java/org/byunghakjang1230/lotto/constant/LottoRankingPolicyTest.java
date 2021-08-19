@@ -12,6 +12,6 @@ class LottoRankingPolicyTest {
     @CsvSource(value = {"3:FOURTH", "4:THIRD", "5:SECOND", "6:FIRST"}, delimiter = ':')
     void find_rank(int matchCount, LottoRankingPolicy rank) {
         // then
-        assertThat(LottoRankingPolicy.findLottoRankByMatchCount(matchCount)).isEqualTo(rank);
+        assertThat(LottoRankingPolicy.findLottoRankBy(matchCount)).isEqualTo(rank);
     }
 }

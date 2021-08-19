@@ -11,9 +11,9 @@ public class TypeConvertor {
         throw new IllegalStateException("Utility Class");
     }
 
-    public static List<LottoNumber> toLottoNumbers(List<Integer> lottoNumbers) {
-        return lottoNumbers.stream()
-                .map(LottoNumber::new)
+    public static List<LottoNumber> toLottoNumbers(List<Integer> numbers) {
+        return numbers.stream()
+                .map(LottoNumbersPool::getLottoNumber)
                 .collect(Collectors.toList());
     }
 

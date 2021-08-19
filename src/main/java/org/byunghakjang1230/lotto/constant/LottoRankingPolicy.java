@@ -36,11 +36,11 @@ public enum LottoRankingPolicy {
         return prizeMoney;
     }
 
-    public Long multiplyPrizeMoney(int matchCount) {
+    public Long multiplyPrizeMoneyBy(int matchCount) {
         return (long)this.prizeMoney * (long)matchCount;
     }
 
-    public static LottoRankingPolicy findLottoRankByMatchCount(int matchCount) {
+    public static LottoRankingPolicy findLottoRankBy(int matchCount) {
         return Arrays.stream(values())
                 .filter(rank -> rank.isSameMatchCount(matchCount))
                 .findAny()

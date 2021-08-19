@@ -9,7 +9,7 @@ import org.byunghakjang1230.lotto.domain.WinningResultStatistics;
 public class ResultView {
     public void showLottoNumbers(Lottos lottos) {
         for (int i = 0; i < lottos.size(); i++) {
-            out.println(lottos.getLotto(i).toStringNumbers("[", "]", ", "));
+            out.println(lottos.getLotto(i).toStringLottoNumbersWith("[", "]", ", "));
         }
         out.println();
     }

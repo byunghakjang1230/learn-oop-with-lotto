@@ -3,7 +3,6 @@ package org.byunghakjang1230.lotto.ui;
 import java.util.Scanner;
 
 import org.byunghakjang1230.lotto.domain.*;
-import org.byunghakjang1230.lotto.utils.TypeConvertor;
 
 public class LottoController {
     private final LottoMachine lottoMachine;
@@ -16,11 +15,11 @@ public class LottoController {
         this.resultView = new ResultView();
     }
 
-    public void runLotto() {
-        Lottos lottos = this.lottoMachine.createLottosAuto(inputView.showInputPriceComment());
+    public void runLottoGame() {
+        Lottos lottos = this.lottoMachine.createLottosAutomatically(inputView.showInputPriceComment());
         resultView.showLottoNumbers(lottos);
-        WinningResultStatistics winningResultStatistics = lottos.makeWinningResultStatistics(
-                new WinningNumbers(TypeConvertor.toLottoNumbers(inputView.showInputLastWeekWinningNumbers())));
+        WinningResultStatistics winningResultStatistics =
+                lottos.makeWinningResultStatistics(WinningNumbers.of(inputView.showInputLastWeekWinningNumbers()));
         resultView.showWinningResultStatistics(winningResultStatistics);
     }
 }

@@ -24,7 +24,7 @@ public class Lotto implements LottoNumbers {
     }
 
     @Override
-    public String toStringNumbers(String prefix, String postfix, String delimiter) {
+    public String toStringLottoNumbersWith(String prefix, String postfix, String delimiter) {
         StringJoiner stringNumber = new StringJoiner(delimiter);
         for (LottoNumber lottoNumber : lottoNumbers) {
             stringNumber.add(lottoNumber.toString());

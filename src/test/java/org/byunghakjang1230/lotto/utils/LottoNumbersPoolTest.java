@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-@DisplayName("로또번호 풀 유틸 테스트")
+@DisplayName("로또번호풀 유틸 테스트")
 class LottoNumbersPoolTest {
     @Test
     @DisplayName("전체 로또번호 객체 생성 개수 확인")

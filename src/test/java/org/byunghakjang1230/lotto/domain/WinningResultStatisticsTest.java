@@ -23,7 +23,7 @@ class WinningResultStatisticsTest {
         WinningResultStatistics winningResultStatistics = WinningResultStatistics.of(lottoCounts, 5000);
 
         // then
-        Long totalPrizeMoney = LottoRankingPolicy.FOURTH.multiplyPrizeMoney(1);
+        Long totalPrizeMoney = LottoRankingPolicy.FOURTH.multiplyPrizeMoneyBy(1);
         assertAll(
                 () -> assertThat(winningResultStatistics.getTotalPrizeMoney()).isEqualTo(totalPrizeMoney),
                 () -> assertThat(winningResultStatistics.getMatchCountBy(LottoRankingPolicy.FOURTH)).isEqualTo(1),

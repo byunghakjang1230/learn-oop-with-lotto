@@ -46,7 +46,7 @@ public class WinningResultStatistics {
 
     private static long calculateTotalPrizeMoney(final Map<LottoRankingPolicy, Integer> rankCounts) {
         return Arrays.stream(LottoRankingPolicy.values())
-                .mapToLong(rank -> rank.multiplyPrizeMoney(rankCounts.getOrDefault(rank, 0)))
+                .mapToLong(rank -> rank.multiplyPrizeMoneyBy(rankCounts.getOrDefault(rank, 0)))
                 .sum();
     }
 

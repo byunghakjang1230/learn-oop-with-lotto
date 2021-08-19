@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.byunghakjang1230.lotto.utils.TypeConvertor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,12 +20,7 @@ class LottoMachineTest {
 
     @BeforeEach
     void setUp() {
-        lottoNumbersGenerator = new LottoNumbersGenerator() {
-            @Override
-            public List<LottoNumber> generateLottoNumbers() {
-                return toLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
-            }
-        };
+        lottoNumbersGenerator = () -> TypeConvertor.toLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
     }
 
     @Test
@@ -34,7 +30,7 @@ class LottoMachineTest {
         LottoMachine lottoMachine = new LottoMachine(lottoNumbersGenerator);
 
         // when
-        Lottos lottos = lottoMachine.createLottosAuto(3000);
+        Lottos lottos = lottoMachine.createLottosAutomatically(3000);
 
         // then
         assertThat(lottos.size()).isEqualTo(3);
