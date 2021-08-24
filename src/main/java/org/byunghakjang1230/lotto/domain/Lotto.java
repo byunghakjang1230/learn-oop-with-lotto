@@ -39,6 +39,10 @@ public class Lotto implements LottoNumbers {
                 .count();
     }
 
+    public boolean isMatchedBonusNumber(WinningNumbers winningNumbers) {
+        return this.lottoNumbers.stream().anyMatch(winningNumbers::isBonusNumberMatchedBy);
+    }
+
     private void validateLottoNumbersSize(List<LottoNumber> lottoNumbers) {
         if (lottoNumbers.size() != LOTTO_NUMBERS_SIZE) {
             throw new IllegalArgumentException("입력된 로또번호가 6개가 아닙니다.");

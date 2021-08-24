@@ -37,4 +37,9 @@ public class InputView {
                 .map(TypeConvertor::toInteger)
                 .collect(Collectors.toList());
     }
+
+    public int showInputLastWeekWinningBonusNumber() {
+        out.println("보너스 볼을 입력해 주세요.");
+        return TypeConvertor.toInteger(scanner.nextLine());
+    }
 }

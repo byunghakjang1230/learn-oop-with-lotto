@@ -26,8 +26,9 @@ public class Lottos {
     public WinningResultStatistics makeWinningResultStatistics(WinningNumbers winningNumbers) {
         Map<LottoRankingPolicy, Integer> lottoCounts = new EnumMap<>(LottoRankingPolicy.class);
         for (Lotto lotto : this.lottos) {
-            int count = lotto.getMatchNumberCount(winningNumbers);
-            LottoRankingPolicy rank = LottoRankingPolicy.findLottoRankBy(count);
+            int lottoMatchNumberCount = lotto.getMatchNumberCount(winningNumbers);
+            boolean isMatchedBonusNumber = lotto.isMatchedBonusNumber(winningNumbers);
+            LottoRankingPolicy rank = LottoRankingPolicy.findLottoRankBy(lottoMatchNumberCount, isMatchedBonusNumber);
             lottoCounts.put(rank, lottoCounts.getOrDefault(rank, 0) + 1);
         }
         return WinningResultStatistics.of(lottoCounts, getTotalPrice());

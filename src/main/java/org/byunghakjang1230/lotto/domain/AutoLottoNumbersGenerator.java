@@ -13,6 +13,7 @@ public class AutoLottoNumbersGenerator implements LottoNumbersGenerator{
         Collections.shuffle(lottoNumbers);
         return lottoNumbers.stream()
                 .limit(6)
+                .sorted((o1, o2) -> o1.lessThan(o2))
                 .collect(Collectors.toList());
     }
 }

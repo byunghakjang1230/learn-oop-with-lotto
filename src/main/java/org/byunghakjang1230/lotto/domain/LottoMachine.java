@@ -19,10 +19,6 @@ public class LottoMachine {
         return new Lottos(lottos);
     }
 
-    public WinningNumbers toWinningLottoNumbers(List<Integer> winningNumbers) {
-        return WinningNumbers.of(winningNumbers);
-    }
-
     private int calculateNumberOfBuy(int price) {
         return price / PRICE_PER_ONE_LOTTO;
     }

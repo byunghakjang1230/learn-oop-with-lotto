@@ -7,9 +7,10 @@ import java.util.stream.Collectors;
 
 public enum LottoRankingPolicy {
     FIRST(6, 2_000_000_000),
-    SECOND(5, 1_500_000),
-    THIRD(4, 50_000),
-    FOURTH(3, 5_000),
+    SECOND(5, 30_000_000),
+    THIRD(5, 1_500_000),
+    FOURTH(4, 50_000),
+    FIFTH(3, 5_000),
     OUT_OF_RANK(0, 0);
 
     private int matchCount;
@@ -37,14 +38,26 @@ public enum LottoRankingPolicy {
     }
 
     public Long multiplyPrizeMoneyBy(int matchCount) {
-        return (long)this.prizeMoney * (long)matchCount;
+        return (long) this.prizeMoney * (long) matchCount;
     }
 
-    public static LottoRankingPolicy findLottoRankBy(int matchCount) {
+    public static LottoRankingPolicy findLottoRankBy(int matchCount, boolean isMatchedBonusNumber) {
+        if (isSecond(matchCount, isMatchedBonusNumber)) {
+            return SECOND;
+        }
+        return findLottoRankWithOutSecondBy(matchCount);
+    }
+
+    public static LottoRankingPolicy findLottoRankWithOutSecondBy(int matchCount) {
         return Arrays.stream(values())
+                .filter(rank -> !SECOND.equals(rank))
                 .filter(rank -> rank.isSameMatchCount(matchCount))
                 .findAny()
                 .orElse(OUT_OF_RANK);
+    }
+
+    private static boolean isSecond(int matchCount, boolean isMatchedBonusNumber) {
+        return SECOND.isSameMatchCount(matchCount) && isMatchedBonusNumber;
     }
 
     private boolean isSameMatchCount(int matchCount) {
