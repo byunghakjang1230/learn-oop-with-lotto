@@ -14,9 +14,13 @@ public class LottoMachine {
     public Lottos createLottosAutomatically(final int price) {
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < calculateNumberOfBuy(price); i++) {
-            lottos.add(new Lotto(lottoNumbersGenerator.generateLottoNumbers()));
+            lottos.add(createLottoAuto());
         }
         return new Lottos(lottos);
+    }
+
+    private Lotto createLottoAuto() {
+        return new Lotto(lottoNumbersGenerator.generateLottoNumbers());
     }
 
     private int calculateNumberOfBuy(int price) {

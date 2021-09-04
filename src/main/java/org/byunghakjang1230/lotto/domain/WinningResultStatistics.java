@@ -20,8 +20,9 @@ public class WinningResultStatistics {
     }
 
     public static WinningResultStatistics of(final Map<LottoRankingPolicy, Integer> rankCounts, final int totalPrice) {
-        Long totalPrizeMoney = calculateTotalPrizeMoney(rankCounts);
-        return new WinningResultStatistics(rankCounts, totalPrizeMoney, calculateProfitRate(totalPrizeMoney, totalPrice));
+        Long totalPrizeMoney = sumTotalPrizeMoney(rankCounts);
+        return new WinningResultStatistics(rankCounts, totalPrizeMoney,
+                calculateProfitRate(totalPrizeMoney, totalPrice));
     }
 
     public Long getTotalPrizeMoney() {
@@ -44,7 +45,7 @@ public class WinningResultStatistics {
         return profitRate < BASE_RATE;
     }
 
-    private static long calculateTotalPrizeMoney(final Map<LottoRankingPolicy, Integer> rankCounts) {
+    private static long sumTotalPrizeMoney(final Map<LottoRankingPolicy, Integer> rankCounts) {
         return Arrays.stream(LottoRankingPolicy.values())
                 .mapToLong(rank -> rank.multiplyPrizeMoneyBy(rankCounts.getOrDefault(rank, 0)))
                 .sum();

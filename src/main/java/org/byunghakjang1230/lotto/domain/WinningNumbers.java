@@ -33,13 +33,6 @@ public class WinningNumbers implements LottoNumbers {
     }
 
     @Override
-    public int getMatchNumberCount(LottoNumbers lottoNumbers) {
-        return (int)this.winningLottoNumbers.stream()
-                .filter(lottoNumbers::isContain)
-                .count();
-    }
-
-    @Override
     public boolean isContain(LottoNumber lottoNumber) {
         return this.winningLottoNumbers.stream()
                 .anyMatch(lottoNumber::equals);
