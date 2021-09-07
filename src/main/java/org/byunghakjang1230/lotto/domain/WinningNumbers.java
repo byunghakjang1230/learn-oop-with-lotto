@@ -8,10 +8,16 @@ import org.byunghakjang1230.lotto.exception.DuplicateLottoNumbersException;
 import org.byunghakjang1230.lotto.utils.TypeConvertor;
 
 public class WinningNumbers implements LottoNumbers {
-    private final List<LottoNumber> winningLottoNumbers;
+    private List<LottoNumber> winningLottoNumbers;
+    private LottoNumber bonusNumber;
 
     private WinningNumbers(List<LottoNumber> winningLottoNumbers) {
         this.winningLottoNumbers = winningLottoNumbers;
+    }
+
+    private WinningNumbers(List<LottoNumber> winningLottoNumbers, LottoNumber bonusNumber) {
+        this.winningLottoNumbers = winningLottoNumbers;
+        this.bonusNumber = bonusNumber;
     }
 
     public static WinningNumbers of(List<Integer> winningNumbers) {
@@ -20,11 +26,10 @@ public class WinningNumbers implements LottoNumbers {
         return new WinningNumbers(TypeConvertor.toLottoNumbers(winningNumbers));
     }
 
-    @Override
-    public int getMatchNumberCount(LottoNumbers lottoNumbers) {
-        return (int)this.winningLottoNumbers.stream()
-                .filter(lottoNumbers::isContain)
-                .count();
+    public static WinningNumbers of(List<Integer> winningNumbers, int bonusNumber) {
+        validateWinningLottoNumbersSize(winningNumbers);
+        validateDuplicateWinningLottoNumbers(winningNumbers);
+        return new WinningNumbers(TypeConvertor.toLottoNumbers(winningNumbers), new LottoNumber(bonusNumber));
     }
 
     @Override
@@ -40,6 +45,10 @@ public class WinningNumbers implements LottoNumbers {
             lottoNumber.add(winningNumber.toString());
         }
         return prefix + lottoNumber.toString() + postfix;
+    }
+
+    public boolean isBonusNumberMatchedBy(LottoNumber lottoNumber) {
+        return this.bonusNumber.equals(lottoNumber);
     }
 
     private static void validateDuplicateWinningLottoNumbers(List<Integer> winningNumbers) {

@@ -18,14 +18,14 @@ public class InputView {
         this.scanner = scanner;
     }
 
-    public int showInputPriceComment() {
+    public int getInputPrice() {
         out.println("구입금액을 입력해 주세요.");
         int price = TypeConvertor.toInteger(scanner.nextLine());
         out.println((price / Lotto.LOTTO_PRICE_PER_ONE) + "개를 구매했습니다.");
         return price;
     }
 
-    public List<Integer> showInputLastWeekWinningNumbers() {
+    public List<Integer> getInputLastWeekWinningNumbers() {
         out.println("지난 주 당첨 번호를 입력해 주세요.");
         String[] textWinningNumber = scanner.nextLine().split(SPLIT_REGEX);
         out.println();
@@ -36,5 +36,10 @@ public class InputView {
         return Arrays.stream(textLastWinningNumber)
                 .map(TypeConvertor::toInteger)
                 .collect(Collectors.toList());
+    }
+
+    public int getInputLastWeekWinningBonusNumber() {
+        out.println("보너스 볼을 입력해 주세요.");
+        return TypeConvertor.toInteger(scanner.nextLine());
     }
 }

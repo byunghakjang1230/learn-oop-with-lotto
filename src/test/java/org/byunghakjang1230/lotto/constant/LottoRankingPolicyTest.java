@@ -9,9 +9,10 @@ import org.junit.jupiter.params.provider.CsvSource;
 @DisplayName("로또 순위 정책 상수 테스트")
 class LottoRankingPolicyTest {
     @ParameterizedTest
-    @CsvSource(value = {"3:FOURTH", "4:THIRD", "5:SECOND", "6:FIRST"}, delimiter = ':')
-    void find_rank(int matchCount, LottoRankingPolicy rank) {
+    @CsvSource(value = {"3:false:FIFTH", "4:false:FOURTH", "5:false:THIRD", "5:true:SECOND", "6:false:FIRST"}, delimiter = ':')
+    @DisplayName("로또 순위 설정")
+    void find_rank(int matchCount, boolean isMatchedBonusNumber, LottoRankingPolicy rank) {
         // then
-        assertThat(LottoRankingPolicy.findLottoRankBy(matchCount)).isEqualTo(rank);
+        assertThat(LottoRankingPolicy.findLottoRankBy(matchCount, isMatchedBonusNumber)).isEqualTo(rank);
     }
 }

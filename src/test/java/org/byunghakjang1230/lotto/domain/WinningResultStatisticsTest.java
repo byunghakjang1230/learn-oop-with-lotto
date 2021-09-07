@@ -27,7 +27,7 @@ class WinningResultStatisticsTest {
         assertAll(
                 () -> assertThat(winningResultStatistics.getTotalPrizeMoney()).isEqualTo(totalPrizeMoney),
                 () -> assertThat(winningResultStatistics.getMatchCountBy(LottoRankingPolicy.FOURTH)).isEqualTo(1),
-                () -> assertThat(winningResultStatistics.getProfitRate()).isEqualTo(1.00)
+                () -> assertThat(winningResultStatistics.getProfitRate()).isEqualTo(10.00)
         );
     }
 }

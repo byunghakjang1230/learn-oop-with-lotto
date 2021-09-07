@@ -48,7 +48,7 @@ class LottoTest {
     void match_count() {
         // given
         Lotto lotto = new Lotto(TypeConvertor.toLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)));
-        WinningNumbers winningNumbers = WinningNumbers.of(Arrays.asList(1, 2, 3, 4, 5, 6));
+        WinningNumbers winningNumbers = WinningNumbers.of(Arrays.asList(1, 2, 3, 4, 5, 6), 10);
 
         // when
         int matchNumberCount = lotto.getMatchNumberCount(winningNumbers);

@@ -11,19 +11,16 @@ public class LottoMachine {
         this.lottoNumbersGenerator = lottoNumbersGenerator;
     }
 
-    public Lottos createLottosAutomatically(final int price) {
+    public Lottos createLottosAutomatically(final Price price) {
         List<Lotto> lottos = new ArrayList<>();
-        for (int i = 0; i < calculateNumberOfBuy(price); i++) {
-            lottos.add(new Lotto(lottoNumbersGenerator.generateLottoNumbers()));
+        int buyQuantity = price.calculateBuyQuantityBy(PRICE_PER_ONE_LOTTO);
+        for (int i = 0; i < buyQuantity; i++) {
+            lottos.add(createLottoAuto());
         }
         return new Lottos(lottos);
     }
 
-    public WinningNumbers toWinningLottoNumbers(List<Integer> winningNumbers) {
-        return WinningNumbers.of(winningNumbers);
-    }
-
-    private int calculateNumberOfBuy(int price) {
-        return price / PRICE_PER_ONE_LOTTO;
+    private Lotto createLottoAuto() {
+        return new Lotto(lottoNumbersGenerator.generateLottoNumbers());
     }
 }

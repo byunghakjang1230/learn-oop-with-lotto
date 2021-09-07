@@ -17,9 +17,17 @@ public class ResultView {
     public void showWinningResultStatistics(WinningResultStatistics statistics) {
         out.println("당첨 통계\n---------");
         for (LottoRankingPolicy rank : LottoRankingPolicy.orderValuesWithoutOutOfRank()) {
-            out.println(rank.getMatchCount() + "개 일치 (" + rank.getPrizeMoney() + ") - " + statistics.getMatchCountBy(rank) + "개");
+            out.println(rank.getMatchCount() + "개 일치" + getBlankOrBonusNumberText(rank) + "(" + rank.getPrizeMoney() + ") - " + statistics.getMatchCountBy(rank) + "개");
+
         }
         out.println("총 수익률을 " + statistics.getProfitRate() + "입니다." + getLossText(statistics));
+    }
+
+    private String getBlankOrBonusNumberText(LottoRankingPolicy rank) {
+        if (LottoRankingPolicy.SECOND.equals(rank)) {
+            return ", 보너스 볼 일치";
+        }
+        return " ";
     }
 
     private String getLossText(WinningResultStatistics statistics) {

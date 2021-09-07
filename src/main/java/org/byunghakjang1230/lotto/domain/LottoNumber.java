@@ -39,4 +39,8 @@ public class LottoNumber {
             throw new IllegalArgumentException("로또 번호는 1~45 사이의 숫자만 가능합니다.");
         }
     }
+
+    public int lessThan(LottoNumber lottoNumber) {
+        return this.lottoNumber - lottoNumber.lottoNumber;
+    }
 }

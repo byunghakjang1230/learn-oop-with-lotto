@@ -1,9 +1,12 @@
 package org.byunghakjang1230.lotto.domain;
 
+import static org.byunghakjang1230.lotto.constant.LottoRankingPolicy.findLottoRankBy;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.StringJoiner;
 
+import org.byunghakjang1230.lotto.constant.LottoRankingPolicy;
 import org.byunghakjang1230.lotto.exception.DuplicateLottoNumbersException;
 
 public class Lotto implements LottoNumbers {
@@ -15,6 +18,21 @@ public class Lotto implements LottoNumbers {
         validateLottoNumbersSize(lottoNumbers);
         validateDuplicateLottoNumbers(lottoNumbers);
         this.lottoNumbers = lottoNumbers;
+    }
+
+    public LottoRankingPolicy getLottoRankBy(WinningNumbers winningNumbers) {
+        return findLottoRankBy(getMatchNumberCount(winningNumbers), isMatchedBonusNumber(winningNumbers));
+    }
+
+    public int getMatchNumberCount(LottoNumbers lottoNumbers) {
+        return (int) this.lottoNumbers.stream()
+                .filter(lottoNumbers::isContain)
+                .count();
+    }
+
+    public boolean isMatchedBonusNumber(WinningNumbers winningNumbers) {
+        return this.lottoNumbers.stream()
+                .anyMatch(winningNumbers::isBonusNumberMatchedBy);
     }
 
     @Override
@@ -30,13 +48,6 @@ public class Lotto implements LottoNumbers {
             stringNumber.add(lottoNumber.toString());
         }
         return prefix + stringNumber.toString() + postfix;
-    }
-
-    @Override
-    public int getMatchNumberCount(LottoNumbers lottoNumbers) {
-        return (int)this.lottoNumbers.stream()
-                .filter(lottoNumbers::isContain)
-                .count();
     }
 
     private void validateLottoNumbersSize(List<LottoNumber> lottoNumbers) {
