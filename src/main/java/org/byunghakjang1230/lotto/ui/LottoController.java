@@ -16,10 +16,10 @@ public class LottoController {
     }
 
     public void runLottoGame() {
-        Lottos lottos = this.lottoMachine.createLottosAutomatically(inputView.showInputPriceComment());
+        Lottos lottos = this.lottoMachine.createLottosAutomatically(new Price(inputView.getInputPrice()));
         resultView.showLottoNumbers(lottos);
-        WinningNumbers winningNumbers = WinningNumbers.of(inputView.showInputLastWeekWinningNumbers(),
-                inputView.showInputLastWeekWinningBonusNumber());
+        WinningNumbers winningNumbers = WinningNumbers.of(inputView.getInputLastWeekWinningNumbers(),
+                inputView.getInputLastWeekWinningBonusNumber());
         resultView.showWinningResultStatistics(lottos.makeWinningResultStatistics(winningNumbers));
     }
 }

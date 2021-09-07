@@ -11,9 +11,10 @@ public class LottoMachine {
         this.lottoNumbersGenerator = lottoNumbersGenerator;
     }
 
-    public Lottos createLottosAutomatically(final int price) {
+    public Lottos createLottosAutomatically(final Price price) {
         List<Lotto> lottos = new ArrayList<>();
-        for (int i = 0; i < calculateNumberOfBuy(price); i++) {
+        int buyQuantity = price.calculateBuyQuantityBy(PRICE_PER_ONE_LOTTO);
+        for (int i = 0; i < buyQuantity; i++) {
             lottos.add(createLottoAuto());
         }
         return new Lottos(lottos);
@@ -21,9 +22,5 @@ public class LottoMachine {
 
     private Lotto createLottoAuto() {
         return new Lotto(lottoNumbersGenerator.generateLottoNumbers());
-    }
-
-    private int calculateNumberOfBuy(int price) {
-        return price / PRICE_PER_ONE_LOTTO;
     }
 }

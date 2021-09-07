@@ -25,7 +25,7 @@ class LottoMachineTest {
         LottoMachine lottoMachine = new LottoMachine(lottoNumbersGenerator);
 
         // when
-        Lottos lottos = lottoMachine.createLottosAutomatically(3000);
+        Lottos lottos = lottoMachine.createLottosAutomatically(new Price(3000));
 
         // then
         assertThat(lottos.size()).isEqualTo(3);

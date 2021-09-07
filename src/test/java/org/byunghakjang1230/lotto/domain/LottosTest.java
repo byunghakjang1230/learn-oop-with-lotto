@@ -24,7 +24,7 @@ class LottosTest {
     void make_statistic_data() {
         // given
         LottoMachine lottoMachine = new LottoMachine(lottoNumbersGenerator);
-        Lottos lottos = lottoMachine.createLottosAutomatically(1000);
+        Lottos lottos = lottoMachine.createLottosAutomatically(new Price(1000));
         WinningNumbers winningNumbers = WinningNumbers.of(Arrays.asList(1, 2, 3, 4, 5, 6), 10);
 
         // when
